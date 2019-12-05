@@ -5,11 +5,11 @@
 	(loop for dir in (splitstr #\, dirs) do
 		(setf d (parse-integer (subseq dir 1)))
 		(setq x1 x2 y1 y2)
-		(if (string= "R" (subseq dir 0 1)) (incf x2 d))
-		(if (string= "L" (subseq dir 0 1)) (decf x2 d))
-		(if (string= "D" (subseq dir 0 1)) (incf y2 d))
-		(if (string= "U" (subseq dir 0 1)) (decf y2 d))
-		collect (list x1 y1 x2 y2)))
+        (if (string= "R" (aref dir 0)) (incf x2 d))
+        (if (string= "L" (aref dir 0)) (decf x2 d))
+        (if (string= "D" (aref dir 0)) (incf y2 d))
+        (if (string= "U" (aref dir 0)) (decf y2 d))
+        collect (list x1 y1 x2 y2)))
 
 (defun path-lens (d1 d2 l1 l2 cross)
     (if cross (+
