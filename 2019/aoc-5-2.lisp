@@ -16,17 +16,17 @@
     (setq cmd (mod (nth i inp) 100))
 
     ;add
-	(when (= 1 cmd)
+    (when (= 1 cmd)
         (setf (getval 3)
-			(+ (getval 1)
-			   (getval 2)))
+            (+ (getval 1)
+               (getval 2)))
         (incf i 4))
 
     ;multiply
-	(when (= 2 cmd)
+    (when (= 2 cmd)
         (setf (getval 3)
-			(* (getval 1)
-			   (getval 2)))
+            (* (getval 1)
+               (getval 2)))
         (incf i 4))
 
     ;read

@@ -5,16 +5,16 @@
 
 (setq i 0)
 (loop while (/= (nth i in) 99) do
-	(if (= 1 (nth i in))
-		(setf
-			(nthin (+ i 3))
-			(+ (nthin (+ i 1))
-			   (nthin (+ i 2))))
-	(if (= 2 (nth i in))
-		(setf
-			(nthin (+ i 3))
-			(* (nthin (+ i 1))
-			   (nthin (+ i 2))))))
-	(incf i 4))
+    (if (= 1 (nth i in))
+        (setf
+            (nthin (+ i 3))
+            (+ (nthin (+ i 1))
+               (nthin (+ i 2))))
+    (if (= 2 (nth i in))
+        (setf
+            (nthin (+ i 3))
+            (* (nthin (+ i 1))
+               (nthin (+ i 2))))))
+    (incf i 4))
 
 (print (nth 0 in))
