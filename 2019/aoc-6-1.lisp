@@ -25,8 +25,8 @@
     (setq p b)
     (loop while (nth 1 p) do
         (setq p (gethash (nth 1 p) table))
-        (incf (nth 0 p))
-))) table)
+        (incf (nth 0 p)))
+)) table)
 
 (maphash (function (lambda (a b) (incf sum (nth 0 b)))) table)
 
