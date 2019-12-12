@@ -39,7 +39,8 @@
         (incf i 4))
 
     ;read
-    (3 (setf (getval 1) (read))
+    (3 (format t "input: ")
+        (setf (getval 1) (read))
         (incf i 2))
 
     ;print

@@ -16,10 +16,22 @@
     (or (and (> x a) (< x b))
 	    (and (> x b) (< x a))))
 
+(defun atan-pt (a b)
+    (rationalize (atan
+        (- (nth 1 a) (nth 1 b))
+        (- (nth 0 a) (nth 0 b)))))
+
+(defun atan-pt-l (a b)
+    (atan
+        (- (nth 1 a) (nth 1 b))
+        (- (nth 0 a) (nth 0 b))))
+
 (defun gdist (line)
     (abs (if (= (nth 0 line) (nth 2 line))
         (- (nth 3 line) (nth 1 line))
         (- (nth 2 line) (nth 0 line)))))
+
+(defun ndiff (a b) (if (= a b) 0 (if (< a b) 1 -1)))
 
 (defun mdist (v)
     (if v (+ (abs (nth 0 v)) (abs (nth 1 v))) 1e9))

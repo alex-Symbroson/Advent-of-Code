@@ -13,8 +13,9 @@
 (loop for o1 in obsts do
     (setq dirs nil)
     (loop for o2 in obsts do
-        (when (not (equal o2 o1)) (pushnew (atan (- (nth 1 o1) (nth 1 o2)) (- (nth 0 o1) (nth 0 o2))) dirs)))
+        (when (not (equal o2 o1))
+            (pushnew (atan-pt o1 o2) dirs)))
     (when (> (list-length dirs) maxl)
-        (setq maxl (list-length dirs))))
+        (setq maxl (list-length dirs) maxp o1)))
 
-(print maxl)
+(print (list maxp maxl))
