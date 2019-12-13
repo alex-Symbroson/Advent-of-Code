@@ -99,5 +99,6 @@
 (format t "~c[2J$" #\ESC)
 (loop for k being each hash-key of canvas do
      (when (= (cine k canvas) 1)
-        (format t "~c[~d;~dH$" #\ESC (+ 3 (nth 1 k)) (+ 0 (nth 0 k)))))
-(format t "~c[H$" #\ESC)
+        (format t "~c[~d;~dH$" #\ESC (+ 3 (nth 1 k)) (nth 0 k))))
+(format t "~c[0;0H$" #\ESC)
+
