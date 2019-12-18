@@ -37,3 +37,6 @@
     (if v (+ (abs (nth 0 v)) (abs (nth 1 v))) 1e9))
 
 (defun concat (a b) (reduce #'cons a :initial-value b :from-end t))
+
+(defun ggt (m n) (if (= n 0) m (ggt n (mod m n))))
+(defun kgv (m n) (/ (* m n) (ggt m n)))
