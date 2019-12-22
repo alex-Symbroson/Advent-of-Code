@@ -9,31 +9,23 @@
 ;        collect (concat (loop for i from 1 to 3
 ;            collect (parse-integer (nth i l))) (copy-list '(0 0 0)))))
 
-(defmacro apply-grav (a b c)
-    `(incf (nth (+ 3 ,c) ,a) (ndiff (nth ,c ,a) (nth ,c ,b))))
+(defmacro apply-grav (a b)
+    `(progn
+        (incf (nth 3 ,a) (ndiff (nth 0 ,a) (nth 0 ,b)))
+        (incf (nth 4 ,a) (ndiff (nth 1 ,a) (nth 1 ,b)))
+        (incf (nth 5 ,a) (ndiff (nth 2 ,a) (nth 2 ,b)))))
 
-(defmacro apply-vel (a c)
-    `(incf (nth ,c ,a) (nth (+ 3 ,c) ,a)))
+(defmacro apply-vel (a)
+    `(progn
+        (incf (nth 0 ,a) (nth 3 ,a))
+        (incf (nth 1 ,a) (nth 4 ,a))
+        (incf (nth 2 ,a) (nth 5 ,a))))
 
+(setq repc 0
+    rep (loop repeat 4 collect (make-list 3))
+    track (loop repeat 4 collect (make-list 3))
+    hist nil)
 
-(loop for j from 0 to 2 do
-    (setq i 0 hist nil)
-    (loop while (or (< (incf i) 13) (not (every #'= hist (last hist 10)))) do
-
-        (loop for a from 0 to 3 do
-            (loop for b from 0 to 3 do
-                (when (/= a b)
-                    (apply-grav (nth a moons) (nth b moons) j))))
-
-        (loop for a from 0 to 3 do
-            (apply-vel (nth a moons) j))
-
-        (push (nth j (nth 0 moons)) hist)
-    )
-    (print (- i 11))
-)
-
-(exit)
 (loop for i from 1 to 1000000 do
     (loop for a from 0 to 3 do
         (loop for b from 0 to 3 do
@@ -45,11 +37,11 @@
     )
 
     (loop for j from 0 to 2 do
-        (setq _tl (nth j (nth a rep)))
-        (push (nth j (nth a moons)) (nth j (nth a rep)))
+        (setq _tl (nth j (nth 0 rep)))
+        (push (nth j (nth 0 moons)) (nth j (nth 0 rep)))
         (when (> i 11)
             (when (every #'= _tl (last _tl 10))
-                (print (list j a (- i 11)))))
+                (print (list j 0 (- i 11)))))
     )
 
     (when (= 0 (mod i 1000)) (print (/ i 1000)))

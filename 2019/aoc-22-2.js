@@ -44,5 +44,3 @@ function fr_quad(x, e) {
     }
     return (x * qdr[e][0] + qdr[e][1]) % len;
 }
-
-//function mod(x, m) { return (x % m + m) % m; }
