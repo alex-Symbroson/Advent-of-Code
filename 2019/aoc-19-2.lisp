@@ -7,7 +7,7 @@
 (setf state 0 xoff 850 ret nil)
 
 (defun write-fun (val)
-    (setq int-ret val int-running nil))
+    (setq int-ret val))
 
 (loop for y from 720 do
     (setq xoff (loop for x from xoff while (= (intcode inp (list x y)) 0) maximizing x))

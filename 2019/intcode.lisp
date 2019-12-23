@@ -1,6 +1,6 @@
-(setf int-running t int-ret nil)
+(setf int-ret nil)
 
-(let (i rel-base)
+(let (i rel-base table)
 
 ; intcode hash table
 (defparameter table (make-hash-table))
@@ -19,12 +19,14 @@
         (2 (+ rel-base (cine (+ i n))))
     ))
 
-(defun intcode (inp &optional args noinit)
-    (setq int-running t rel-base 0 i -1)
+(defun intcode (inp &optional args noinit intstate step)
+    (setq i -1)
     (when (not noinit) (loop for v in inp do (setf (gethash (incf i) table) v)))
+    (if (and step intstate)
+        (setf table (nth 2 intstate) rel-base (nth 1 intstate) i (nth 0 intstate))
+        (setf rel-base 0 i 0))
 
-    (setf i 0)
-    (loop while (and (/= (cine i) 99) int-running) do
+    (loop while (and (/= (cine i) 99)) do
         (case (mod (cine i) 100)
         ;add
         (1 (setf (getval 3)
@@ -70,5 +72,12 @@
 
         ;ch rel-base
         (9 (incf rel-base (getval 1))
-            (incf i 2)))
+            (incf i 2))
+
+        (otherwise (format t "invalid command ~d" (cine i)) (terpri) (read)))
+
+        (when step
+            (return-from intcode
+                (list i rel-base table args
+                    (if (= (cine i) 99) -99 int-ret))))
     ) int-ret))
