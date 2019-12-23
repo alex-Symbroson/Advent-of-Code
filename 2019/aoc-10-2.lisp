@@ -1,4 +1,4 @@
-(require "common.lisp")
+(require "common")
 
 (setq y 0 obsts nil pos '(22 28))
 (loop for l in (get-file "aoc-10.txt") do

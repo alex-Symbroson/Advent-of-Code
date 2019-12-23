@@ -1,6 +1,6 @@
 
-(load "aoc-13.lisp")
-(load "intcode.lisp")
+(load "aoc-13")
+(load "intcode")
 (setf (nth 0 inp) 2)
 
 (defun ndiff (a b) (if (= a b) 0 (if (< a b) 1 -1)))

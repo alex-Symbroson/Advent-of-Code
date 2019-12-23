@@ -1,6 +1,6 @@
-(load "aoc-23.lisp")
-(load "intcode.lisp")
-(load "common.lisp")
+(load "aoc-23")
+(load "intcode")
+(load "common")
 
 (setq cmd nil gi -1 gqueue (make-hash-table))
 

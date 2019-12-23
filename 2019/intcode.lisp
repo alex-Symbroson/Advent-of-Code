@@ -1,6 +1,6 @@
 (setf int-ret nil)
 
-(let (i rel-base table)
+(let (i rel-base)
 
 ; intcode hash table
 (defparameter table (make-hash-table))

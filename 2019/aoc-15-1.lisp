@@ -1,6 +1,6 @@
 ;242
-(load "intcode.lisp")
-(load "aoc-15.lisp")
+(load "intcode")
+(load "aoc-15")
 
 (setq x 0 y 0 tx x ty y cmds nil lf #\.)
 (defun read-fun () (loop

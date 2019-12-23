@@ -1,6 +1,6 @@
 
-(load "aoc-13.lisp")
-(load "intcode.lisp")
+(load "aoc-13")
+(load "intcode")
 
 (setq blcks 0 cmd nil)
 

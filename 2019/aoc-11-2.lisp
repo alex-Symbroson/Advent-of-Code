@@ -1,6 +1,6 @@
 
-(load "aoc-11.lisp")
-(load "intcode.lisp")
+(load "aoc-11")
+(load "intcode")
 
 ; init drawing hash table
 (defparameter canvas (make-hash-table :test 'equal))

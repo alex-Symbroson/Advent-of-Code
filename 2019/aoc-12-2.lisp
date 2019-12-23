@@ -1,5 +1,5 @@
 
-(load "common.lisp")
+(load "common")
 
 (setf res nil moons
     (loop for l in (get-file "aoc-12.txt") do

@@ -1,5 +1,5 @@
-(load "intcode.lisp")
-(load "aoc-17.lisp")
+(load "intcode")
+(load "aoc-17")
 
 (defun read-fun () (format t "input: ") (read))
 

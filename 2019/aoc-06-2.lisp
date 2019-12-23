@@ -1,5 +1,5 @@
 
-(require "common.lisp")
+(require "common")
 
 (setf data (loop for n in (get-file "aoc-06.txt")
     collect (splitstr #\)  n)))

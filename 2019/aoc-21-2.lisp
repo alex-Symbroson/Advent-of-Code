@@ -1,5 +1,5 @@
-(load "aoc-21.lisp")
-(load "intcode.lisp")
+(load "aoc-21")
+(load "intcode")
 
 (setq prog (coerce
 "NOT A J

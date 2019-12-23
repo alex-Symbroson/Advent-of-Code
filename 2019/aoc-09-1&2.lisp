@@ -1,5 +1,5 @@
 
-(load "aoc-09.lisp"))
+(load "aoc-09"))
 
 ; init hash table
 (defparameter table (make-hash-table))
