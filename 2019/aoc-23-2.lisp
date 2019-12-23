@@ -2,7 +2,7 @@
 (load "intcode.lisp")
 (load "common.lisp")
 
-(setq blcks 0 cmd nil gi -1 gqueue (make-hash-table))
+(setq cmd nil gi -1 gqueue (make-hash-table))
 
 (setf (gethash 255 gqueue) '((255 0 0)))
 (defun write-fun (val)
@@ -31,6 +31,7 @@
 (loop while running do
     (if (and (= idle- 0) (> idle+ 0)) (incf idle) (setf idle 0))
 
+    ;worst implementation, takes ages to complete but hey at least it gets its sh*t done
     (when (>= idle 700)
         (setf cmd (car (gethash 255 gqueue)))
         (when (= ccmd (caddr cmd)) (setq running nil))
