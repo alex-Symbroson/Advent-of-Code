@@ -1,8 +1,4 @@
-*_*
+*.txt
 *.pdf
-*.log
-
-# lisp object files
-*.lib
-*.fas
+*.bmp
 

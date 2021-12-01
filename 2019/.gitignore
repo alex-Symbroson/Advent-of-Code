@@ -1,0 +1,6 @@
+*_*
+*.log
+
+# lisp object files
+*.lib
+*.fas
