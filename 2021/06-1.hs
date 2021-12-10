@@ -10,6 +10,6 @@ evo 0 fish = fish
 evo n fish = evo (n-1) $ doevo $ gener fish
 
 main = do
-    content <- readFile "05.txt"
+    content <- readFile "06.txt"
     let fish = map s2i $ splitOn "," content
     print $ length $ evo 50 fish

@@ -16,7 +16,7 @@ evo 0 fish = fish
 evo n fish = evo (n-1) $ doevo $ gener fish
 
 main = do
-    content <- readFile "05.txt"
+    content <- readFile "06.txt"
     let fish = L.map s2i $ splitOn "," content
     let mfish = cntFish fish M.empty
     print $ sum $ M.elems $ evo 256 mfish
