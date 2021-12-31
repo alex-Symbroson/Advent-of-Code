@@ -19,6 +19,6 @@ rating i m ls = rating (i+1) m (filter (\l -> (m !! sign (mcb i ls)) == (l !! i)
 main = do
     content <- readFile "03.txt"
     let parsed = lines content
-    let a = readBin $ reverse $ head (rating 0 "01" parsed)
-    let b = readBin $ reverse $ head (rating 0 "10" parsed)
+    let a = bin2int $ reverse $ head (rating 0 "01" parsed)
+    let b = bin2int $ reverse $ head (rating 0 "10" parsed)
     print $ a*b

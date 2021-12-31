@@ -15,7 +15,7 @@ fmcb i ls m = digitToInt (m !! sign (mcb i ls)) : fmcb (i+1) ls m
 main = do
     content <- readFile "03.txt"
     let parsed = lines content
-    let a = readBin $ reverse (fmcb 0 parsed "01")
-    let b = readBin $ reverse (fmcb 0 parsed "10")
+    let a = bin2int $ reverse (fmcb 0 parsed "01")
+    let b = bin2int $ reverse (fmcb 0 parsed "10")
     print $ a*b
 

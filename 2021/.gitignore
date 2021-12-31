@@ -1,6 +1,9 @@
 *.o
 *.hi
 
+node_modules
+dist-newstyle
+
 [0-9][0-9]-[12]
 /main
 test*
