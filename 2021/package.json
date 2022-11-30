@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "glm-js": "^0.0.6-c"
+  }
+}

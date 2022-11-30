@@ -18,14 +18,16 @@ main = do
     content <- readFile "15.txt"
     let m = parse 0 0 $ lines content
     let (h,w) = maximum $ keys m
-    
+
     let m2 = foldr (\oy m2 -> foldr (\ox m3 -> foldr (insert5 ox oy (w+1) (h+1)) m3 (keys m)) m2 [0..4]) m [0..4]
     let (h2,w2) = maximum $ keys m2
     --printf $ map (\k -> intToDigit (m2 ! k)) (keys m2)
 
-    let (cost, path) = fromJust $ aStar (getNext w2 h2) (mcost m2) (dist (h2,w2)) (==(h2,w2)) (0,0)
-    print cost
+    --let (cost, path) = fromJust $ aStar (getNext w2 h2) (mcost m2) (dist (h2,w2)) (==(h2,w2)) (0,0)
+    let (cost, path) = fromJust $ astarSearch (0,0) (==(h2,w2)) (map (applCost w2 h2).getNext w2 h2) (dist (h2,w2))
+    print $ length m2
     where
+        applCost w h x = (x, dist (w,h) x)
         mcost m a b = m!b
         dist (a,b) (c,d) = abs(a-c)+abs(b-d)
         getNext w h = nbrs `pruning` isWall w h

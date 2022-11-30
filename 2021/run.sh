@@ -15,4 +15,4 @@ function run {
 }
 
 run ghc $CFLAGS $IFLAGS --make "$1" -o "$TARGET" $LFLAGS
-run ./"$TARGET"
+time run ./"$TARGET"
