@@ -1,4 +1,6 @@
 *.txt
 *.pdf
 *.bmp
-
+input
+puzzle.md
+test*
