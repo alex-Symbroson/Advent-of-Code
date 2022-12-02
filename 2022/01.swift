@@ -1,6 +1,7 @@
 import Foundation
 
-let input = readinput(n: "input")
+let input: String = readinput(n: "input")
+let parsed = input
     .split(separator: "\n\n")
     .map 
     {
@@ -10,10 +11,10 @@ let input = readinput(n: "input")
         .reduce(0, +)
     }
 
-let res1 = input.max()!
+let res1 = parsed.max()!
 print(res1)
 
-let res2 = input
+let res2 = parsed
     .sorted()
     .suffix(_: 3)
     .reduce(0, +)
