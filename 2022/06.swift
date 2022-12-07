@@ -1,7 +1,6 @@
 import Foundation
 
 let input: String = readinput(n: "input")
-//"mjqjpqmgbljsphdztnvjfqwrcgsmlb"
 
 let s = input
 
