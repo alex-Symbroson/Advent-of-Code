@@ -20,10 +20,9 @@ func parse(_ name:String) -> Int
     return sum;
 }
 
-let total = parse("")
+let goal = parse("") - 40000000;
 let res1 = dirs.values.filter { $0 < 100000 }.reduce(0, +)
 print(res1)
 
-let goal = total - 40000000;
-let res2 = dirs.values.reduce(70000000, { $1 >= goal && $0 - goal > $1 - goal ? $1 : $0 })
+let res2 = dirs.values.filter { $0 > goal }.min()!
 print(res2)
