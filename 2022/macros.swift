@@ -19,3 +19,4 @@ extension Collection where Self.Iterator.Element: RandomAccessCollection {
         return firstRow.indices.map { i in self.map { $0[i] }}
     }
 }
+
