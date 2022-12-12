@@ -20,3 +20,25 @@ extension Collection where Self.Iterator.Element: RandomAccessCollection {
     }
 }
 
+
+//  Created by Damiaan Dufaux on 21/08/16.
+//  Copyright © 2016 Damiaan Dufaux. All rights reserved.
+
+extension Array where Element: Comparable
+{
+    func binarySearch(element: Element) -> Int
+    {
+        var low = startIndex, high = endIndex
+        while low != high
+        {
+            let mid = low.advanced(by: low.distance(to: high) / 2)
+            if self[mid] < element { low = mid.advanced(by: 1) }
+            else { high = mid }
+        }
+        return low
+    }
+    
+    mutating func sortedInsert(newElement: Element) {
+        insert(newElement, at: binarySearch(element: newElement) )
+    }
+}
