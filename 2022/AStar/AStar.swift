@@ -6,15 +6,15 @@
 
  The `OracleType` generic parameter provides the `Int` type that determines how costs are stored (Int, Float, etc.)
  */
-public final class AStar
+public final class AStar<PosType : Hashable>
 {
-    typealias NodeType = Node
+    typealias NodeType = Node<PosType>
 
     /// Function type that returns the heuristic cost for moving from a given position to an end goal (the method must
     /// have knowledge of the end goal)
-    public typealias HeuristicCostFunc = (Coord2D) -> Int
-    public typealias nextNodesFunc = (Coord2D) -> [Coord2D]
-    public typealias testGoalFunc = (Coord2D) -> Bool
+    public typealias HeuristicCostFunc = (PosType) -> Int
+    public typealias nextNodesFunc = (PosType) -> [PosType]
+    public typealias testGoalFunc = (PosType) -> Bool
 
     /**
      Attempt to find the lowest-cost path from start to end positions of a given map.
@@ -31,7 +31,7 @@ public final class AStar
         _ nextNodes: @escaping nextNodesFunc,
         _ testGoal: @escaping testGoalFunc,
         _ heuristicCost: @escaping HeuristicCostFunc,
-        start: Coord2D) -> [Coord2D]?
+        start: PosType) -> [PosType]?
     {
         return AStar(nextNodes, testGoal, heuristicCost)
             .find(start: start)
@@ -41,7 +41,7 @@ public final class AStar
     private let testGoal: testGoalFunc
     private let heuristicCost: HeuristicCostFunc
     private var openQueue: [NodeType] = []
-    private var nodeCache = [Coord2D: NodeType]()
+    private var nodeCache = [PosType: NodeType]()
 
     private init(
         _ nextNodes: @escaping nextNodesFunc,
@@ -58,7 +58,7 @@ public final class AStar
 
 extension AStar {
 
-    private func find(start: Coord2D) -> [Coord2D]?
+    private func find(start: PosType) -> [PosType]?
     {
         enqueue(position: start)
         while openQueue.count > 0 {
@@ -69,20 +69,20 @@ extension AStar {
         return nil
     }
 
-    private func enqueue(position: Coord2D)
+    private func enqueue(position: PosType)
     {
         let node = Node(position: position, heuristicRemaining: heuristicCost(position))
         nodeCache[position] = node
         openQueue.sortedInsert(newElement: node)
     }
 
-    private func enqueue(position: Coord2D, parent: NodeType)
+    private func enqueue(position: PosType, parent: NodeType)
     {
         guard let node = visit(position: position, parent: parent) else { return }
         openQueue.sortedInsert(newElement: node)
     }
 
-    private func visit(position: Coord2D, parent: NodeType) -> NodeType?
+    private func visit(position: PosType, parent: NodeType) -> NodeType?
     {
         let heuristicRemaining = heuristicCost(position)
         if let node = nodeCache[position] {

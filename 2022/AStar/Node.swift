@@ -4,10 +4,10 @@
  Helper class that keeps track of the costs involved in reaching a given position in the map. Maintains a linked list
  of nodes that make up a path to the starting position.
  */
-internal final class Node
+internal final class Node<PosType : Hashable>
 {
     /// Lcation of this node in a map
-    var position: Coord2D
+    var position: PosType
 
     /// The total cost of this node: the known cost from the start + the estimated cost to the end
     private(set) var totalCost: Int = 0
@@ -31,7 +31,7 @@ internal final class Node
      - parameter position: the location of the node in the map
      - parameter heuristicRemaining: the estimated cost travelling to the goal position
      */
-    init(position: Coord2D, heuristicRemaining: Int) {
+    init(position: PosType, heuristicRemaining: Int) {
         self.position = position
         self.positionCost = 0
     }
@@ -44,7 +44,7 @@ internal final class Node
      - parameter heuristicRemaining: the estimated cost travelling to the goal position
      - parameter parent: the parent node representing the path to this node
      */
-    init(position: Coord2D, cost: Int, heuristicRemaining: Int, parent: Node) {
+    init(position: PosType, cost: Int, heuristicRemaining: Int, parent: Node) {
         self.position = position
         self.positionCost = cost
         self.parent = parent
@@ -77,9 +77,9 @@ internal final class Node
     /**
      Obtain the path from the first Node in the chain to this one.
 
-     - returns: array of Coord2D values
+     - returns: array of PosType values
      */
-    func path() -> [Coord2D] {
+    func path() -> [PosType] {
         guard let parent = self.parent else { return [position] }
         return parent.path() + [position]
     }

@@ -5,7 +5,8 @@ let input: String = readinput(n: "input")
 
 public class Coord2D: Hashable
 {
-    var x: Int, y: Int, h: Int
+    let x: Int, y: Int
+    var h: Int
 
     init(_ x: Int, _ y: Int, _ h: Int)
     { self.x = x; self.y = y; self.h = h; }
@@ -49,8 +50,8 @@ func nextNodes(_ p: Coord2D) -> [Coord2D]
     return next
 }
 
-let path1 = AStar.find(nextNodes, { $0 == start }, heuristicCost, start: end!)
-let path2 = AStar.find(nextNodes, { $0.h == 97 }, heuristicCost, start: end!)
+let path1 = AStar<Coord2D>.find(nextNodes, { $0 == start }, heuristicCost, start: end!)
+let path2 = AStar<Coord2D>.find(nextNodes, { $0.h == 97 }, heuristicCost, start: end!)
 
 print((path1?.count ?? 0) - 1)
 print((path2?.count ?? 0) - 1)
