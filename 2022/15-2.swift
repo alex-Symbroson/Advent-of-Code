@@ -32,7 +32,10 @@ for (p1, p2) in lines1
     {
         let p = intersectLines2(p1,p2,p3,p4) 
 
-        if  p.x >= 0 && p.x <= dmax &&
+        if  
+            p.x >= min(p1.x, p2.x) &&
+            p.x <= max(p1.x, p2.x) &&
+            p.x >= 0 && p.x <= dmax &&
             p.y >= 0 && p.y <= dmax
         { intersections.insert(p) }
     }
