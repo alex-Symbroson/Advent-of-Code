@@ -11,6 +11,10 @@ extension StringProtocol {
     subscript(offset: Int) -> Character {
         self[index(startIndex, offsetBy: offset)]
     }
+
+    func split(_ sep: String) -> [SubSequence] {
+        return split(separator: sep)
+    }
 }
 
 extension Collection where Self.Iterator.Element: RandomAccessCollection {
