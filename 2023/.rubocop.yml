@@ -1,0 +1,11 @@
+Style/FrozenStringLiteralComment:
+  Enabled: true
+
+Naming/MethodParameterName:
+  Enabled: false
+
+Layout/IndentationWidth:
+  Width: 4
+
+AllCops:
+  NewCops: enable
