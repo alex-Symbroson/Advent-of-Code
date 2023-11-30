@@ -1,5 +1,9 @@
+AllCops:
+  TargetRubyVersion: 3.2
+  NewCops: enable
+
 Style/FrozenStringLiteralComment:
-  Enabled: true
+  Enabled: false
 
 Naming/MethodParameterName:
   Enabled: false
@@ -7,5 +11,5 @@ Naming/MethodParameterName:
 Layout/IndentationWidth:
   Width: 4
 
-AllCops:
-  NewCops: enable
+Style/MultilineBlockChain:
+  Enabled: false
