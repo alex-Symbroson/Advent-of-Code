@@ -1,13 +1,10 @@
 input = File.readlines('input.txt')
 
-digits = input.map { |line| line.chars.filter { |c| c >= '0' && c <= '9' } }
+digits = input.map { |line| line.scan(/\d/) }
 print('Part 1: ', digits.sum { |num| (num.first + num.last).to_i }, "\n")
 
-names = %w[zedddddro one two three four five six seven eight nine]
+names = %w[_ one two three four five six seven eight nine]
 digits = input.map do |line|
-    names
-        .filter { |n| line.include?(n) }
-        .reduce(line) { |l, r| l.gsub(r, r + names.index(r).to_s + r) }
-        .chars.filter { |c| c >= '0' && c <= '9' }
+    line.gsub(Regexp.new("(?=(#{names.join('|')}))")) { |_| names.index(Regexp.last_match(1)).to_s }.scan(/\d/)
 end
 print('Part 2: ', digits.sum { |num| (num.first + num.last).to_i })
