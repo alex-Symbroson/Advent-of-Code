@@ -13,3 +13,6 @@ Layout/IndentationWidth:
 
 Style/MultilineBlockChain:
   Enabled: false
+
+Style/PerlBackrefs:
+  Enabled: false
