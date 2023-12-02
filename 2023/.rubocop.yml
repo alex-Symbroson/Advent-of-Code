@@ -16,3 +16,6 @@ Style/MultilineBlockChain:
 
 Style/PerlBackrefs:
   Enabled: false
+
+Naming/MethodName:
+  Enabled: false
