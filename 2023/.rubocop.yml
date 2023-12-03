@@ -19,3 +19,7 @@ Style/PerlBackrefs:
 
 Naming/MethodName:
   Enabled: false
+
+Style/For:
+  Enabled: false
+
