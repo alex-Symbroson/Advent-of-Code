@@ -1,5 +1,4 @@
-input = File.read('input.txt')
-seeds, *maps = input.split("\n\n")
+seeds, *maps = $<.read.split("\n\n")
 seeds = seeds.split[1..].map(&:to_i)
 maps = maps.map { _1.split.map(&:to_i)[2..] }
 

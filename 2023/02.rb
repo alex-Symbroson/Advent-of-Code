@@ -1,4 +1,3 @@
-input = File.readlines('input.txt')
 max = { 'r' => 12, 'g' => 13, 'b' => 14 }
 
 def sumTurns(turns, &op)
@@ -7,7 +6,7 @@ def sumTurns(turns, &op)
     end
 end
 
-games = input.map do |line|
+games = $<.readlines.map do |line|
     line.split(': ')[1].split('; ').map do |turn|
         turn.split(', ').to_h do |cubes|
             t = cubes.split

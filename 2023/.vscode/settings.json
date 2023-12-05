@@ -1,7 +1,17 @@
 {
     "editor.formatOnSave": true,
     "[ruby]": {
-        "editor.defaultFormatter": "Shopify.ruby-lsp"
+        "editor.defaultFormatter": "Shopify.ruby-lsp",
+        "editor.formatOnSave": true,
+        "editor.tabSize": 4,
+        "editor.insertSpaces": true,
+        "files.trimTrailingWhitespace": true,
+        "files.insertFinalNewline": true,
+        "files.trimFinalNewlines": true,
+        "editor.rulers": [
+            80
+        ],
+        "editor.semanticHighlighting.enabled": true
     },
     "rubyLsp.enableExperimentalFeatures": true,
     "rubyLsp.formatter": "rubocop",

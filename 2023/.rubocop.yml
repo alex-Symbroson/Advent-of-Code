@@ -2,17 +2,18 @@ AllCops:
   TargetRubyVersion: 3.2
   NewCops: enable
 
-Style/FrozenStringLiteralComment: {Enabled: false}
-Naming/MethodParameterName: {Enabled: false}
-Layout/IndentationWidth: {Width: 4}
-Style/MultilineBlockChain: {Enabled: false}
-Style/PerlBackrefs: {Enabled: false}
-Naming/MethodName: {Enabled: false}
-Style/For: {Enabled: false}
-Style/SpecialGlobalVars: {Enabled: false}
-Style/NumberedParameters: {Enabled: false}
-Style/NumberedParametersLimit: {Enabled: false}
-Metrics/AbcSize: {Enabled: false}
-Metrics/MethodLength: {Enabled: false}
-Style/GlobalVars: {Enabled: false}
-Style/CaseEquality: {Enabled: false}
+Style/FrozenStringLiteralComment: { Enabled: false }
+Naming/MethodParameterName: { Enabled: false }
+Layout/IndentationWidth: { Width: 4 }
+Style/MultilineBlockChain: { Enabled: false }
+Style/PerlBackrefs: { Enabled: false }
+Naming/MethodName: { Enabled: false }
+Style/For: { Enabled: false }
+Style/SpecialGlobalVars: { Enabled: false }
+Style/NumberedParameters: { Enabled: false }
+Style/NumberedParametersLimit: { Enabled: false }
+Metrics/AbcSize: { Enabled: false }
+Metrics/MethodLength: { Enabled: false }
+Style/GlobalVars: { Enabled: false }
+Style/CaseEquality: { Enabled: false }
+CopNaming/FileName: { Enabled: false }

@@ -1,8 +1,6 @@
 require './helper'
 
-input = File.read('input.txt')
-
-seeds, *maps = input.split("\n\n")
+seeds, *maps = $<.read.split("\n\n")
 seeds = seeds.split[1..].map(&:to_i).each_slice(2).map { _1.._1 + _2 }
 $maps = maps.map { |m| m.split.map(&:to_i)[2..].each_slice(3).map { [_2.._2 + _3, _1 - _2] } }
 

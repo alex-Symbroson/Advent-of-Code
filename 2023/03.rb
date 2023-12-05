@@ -1,5 +1,4 @@
-input = File.readlines('input.txt')
-input = ['', *input]
+input = ['', *$<.readlines]
 parts = []
 gears = {}
 

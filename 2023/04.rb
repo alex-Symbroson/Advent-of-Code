@@ -1,6 +1,4 @@
-input = File.readlines('input.txt')
-
-wins = input.map { |l| l.split(/ \| |: /)[1, 2].map(&:split).reduce(&:&).size }
+wins = $<.readlines.map { |l| l.split(/ \| |: /)[1, 2].map(&:split).reduce(&:&).size }
 puts "Part 1: #{(wins - [0]).sum { 2**(_1 - 1) }}"
 
 cnt = wins.map { 1 }
