@@ -10,3 +10,7 @@ Style/PerlBackrefs: {Enabled: false}
 Naming/MethodName: {Enabled: false}
 Style/For: {Enabled: false}
 Style/SpecialGlobalVars: {Enabled: false}
+Style/NumberedParameters: {Enabled: false}
+Style/NumberedParametersLimit: {Enabled: false}
+Metrics/AbcSize: {Enabled: false}
+Metrics/MethodLength: {Enabled: false}
