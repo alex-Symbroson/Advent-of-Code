@@ -6,10 +6,28 @@ module Helper
 end
 
 class Range
+    def intersect?(other)
+        !(max < other.begin || other.max < self.begin)
+    end
+
     def intersection(other)
-        return nil if max < other.begin or other.max < self.begin
+        return nil unless intersect?(other)
 
         [self.begin, other.begin].max..[max, other.max].min
+    end
+
+    def empty?
+        size.zero?
+    end
+
+    def split(other)
+        return nil unless s = self & other
+
+        [self.begin...s.begin, max...s.max].filter { |v| !v.empty? }
+    end
+
+    def +(other)
+        self.begin + other..max + other
     end
     alias & intersection
 end

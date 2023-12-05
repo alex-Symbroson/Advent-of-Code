@@ -14,3 +14,5 @@ Style/NumberedParameters: {Enabled: false}
 Style/NumberedParametersLimit: {Enabled: false}
 Metrics/AbcSize: {Enabled: false}
 Metrics/MethodLength: {Enabled: false}
+Style/GlobalVars: {Enabled: false}
+Style/CaseEquality: {Enabled: false}

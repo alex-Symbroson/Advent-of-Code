@@ -1,17 +1,12 @@
 input = File.read('input.txt')
-
-seeds = input.match(/[\d ]+/).match(0).split.map(&:to_i)
-
-maps = input.split("\n\n")[1..].map do |map|
-    map.split("\n")[1..].map do
-        _1.split.map(&:to_i)
-        # [a..a + l, b..b + l]
-    end
-end
+seeds, *maps = input.split("\n\n")
+seeds = seeds.split[1..].map(&:to_i)
+maps = maps.map { _1.split.map(&:to_i)[2..] }
 
 conv = seeds.map do |seed|
-    maps.reduce(seed) do |s1, ms1|
-        ms1.reduce(s1) { |s, ms| s == s1 && s >= ms[1] && s < ms[1] + ms[2] ? s - ms[1] + ms[0] : s }
+    maps.reduce(seed) do |s, ms1|
+        msf = ms1.each_slice(3).find { |(_, a, l)| s >= a && s < a + l }
+        msf ? s - msf[1] + msf[0] : s
     end
 end
 
