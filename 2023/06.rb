@@ -1,8 +1,14 @@
-s = $<.readlines
-m = s.map { |l| l.split[1..].map(&:to_i) }.reduce(&:zip)
-r = m.map { |(t, d)| (t / 2..).take_while { _1 * (t - _1) > d }.size }
-puts "Part 1: #{r.map { (_1 * 2) - 1 }.reduce(&:*)}"
+s = $<.readlines.map { _1.split[1..].map(&:to_i) }
+solve = lambda { |(t, d)|
+    b = (t / 2..).take_while { _1 * (t - _1) > d }.size
+    t.even? ? 2 * b - 1 : 2 * b - 2
+}
+puts "Part 1: #{s.reduce(&:zip).map(&solve).reduce(&:*)}"
+puts "Part 2: #{solve.call(s.map(&:join).map(&:to_i))}"
 
-t, d = s.map { |l| l.gsub(' ', '').split(':')[1].to_i }
-r = (t / 2..).take_while { _1 * (t - _1) > d }.size
-puts "Part 2: #{(2 * r) - 1}" # even time so -1
+# alternative
+solve = lambda { |(t, d)|
+    b1 = (t + (t * t - 4 * d)**0.5) / 2
+    b2 = (t - (t * t - 4 * d)**0.5) / 2
+    b1.ceil - b2.floor - 1
+}

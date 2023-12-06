@@ -1,11 +1,7 @@
-s=$<.readlines
-m=s.map{_1.split[1..].map(&:to_i)}.reduce(&:zip)
-r=m.map{|(t,d)|(t/2..).take_while{_1*(t-_1)>d}.size*2-1}
-puts"Part1:#{r.reduce(&:*)}"
+s=$<.readlines.map{_1.split[1..].map(&:to_i)}
+c=->((t,d)){((t+(t*t-4*d)**0.5)/2).ceil-((t-(t*t-4*d)**0.5)/2).floor-1}
+puts"Part1:#{s.reduce(&:zip).map(&c).reduce(&:*)}"
+puts"Part2:#{c.call(s.map(&:join).map(&:to_i))}"
 
-t,d=s.map{_1.delete(' ').split(':')[1].to_i}
-r=(t/2..).take_while{_1*(t-_1)>d}.size
-puts"Part2:#{r*2-1}"
-
-#short: (0..t).map{_1*(t-_1)}.filter{_1>d}.size
-# fast: (t/2..).take_while{_1*(t-_1)>d}.size*2-1
+# alternative
+c=->((t,d)){2*(t/2..).take_while{_1*(t-_1)>d}.size-(t.even?? 1:2)}
