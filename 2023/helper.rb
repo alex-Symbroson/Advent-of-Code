@@ -31,3 +31,9 @@ class Range
     end
     alias & intersection
 end
+
+class Symbol
+    def call(*, &)
+        ->(caller, *rest) { caller.send(self, *rest, *, &) }
+    end
+end

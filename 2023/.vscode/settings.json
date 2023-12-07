@@ -15,5 +15,8 @@
     },
     "rubyLsp.enableExperimentalFeatures": true,
     "rubyLsp.formatter": "rubocop",
-    "rubyLsp.rubyVersionManager": "none"
+    "rubyLsp.rubyVersionManager": "none",
+    "files.associations": {
+        "input": "text/plain"
+    }
 }
