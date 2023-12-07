@@ -1,4 +1,4 @@
-input = ['', *$<.readlines]
+input = ['', *$<]
 parts = []
 gears = {}
 

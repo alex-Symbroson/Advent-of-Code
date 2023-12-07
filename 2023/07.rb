@@ -12,7 +12,7 @@ order2 = lambda { |c|
     perms.map { |p| order1.(p.reduce(c) { _1.sub('0', _2) }) }.max
 }
 
-cards = $<.readlines.map { [_1.split[0].chars.map(&digx).join, _1.split[1].to_i] }
+cards = $<.map { [_1.split[0].chars.map(&digx).join, _1.split[1].to_i] }
 cards1 = cards.map { _1 << order1.(_1[0]) }
 puts "Part 1: #{winnings.(cards1)}"
 

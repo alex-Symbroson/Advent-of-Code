@@ -26,6 +26,6 @@ _solve = lambda { |(t, d)|
     b + (t + b + 1) % 2
 }
 
-s = $<.readlines.map { _1.split[1..].map(&:to_i) }
+s = $<.map { _1.split[1..].map(&:to_i) }
 puts "Part 1: #{s.reduce(&:zip).map(&solve).reduce(&:*)}"
 puts "Part 2: #{solve.call(s.map(&:join).map(&:to_i))}"

@@ -21,12 +21,12 @@ if ($answer -match "Part\s*(\d):\s*(\d+)" -and $matches) {
     $val = $matches[2]
     $part = $matches[1]
 
-    $confirmation = Read-Host "$esc[32mSubmit $esc[1;37m$val$esc[22m to part $esc[1m${part}$esc[22m? [y/n]"
+    $confirmation = Read-Host "$esc[32mSubmit $esc[1;37m$val$esc[22m to part $esc[1m${part}$esc[22m? [Y/N]"
     
-    if ($confirmation -eq 'y') {
+    if ($confirmation -eq 'Y') {
         aoc s $part $val
     }
-    if ($confirmation -eq 'n') {
+    if ($confirmation -eq 'N') {
         Write-Output "> aoc s $part $val"
     }
 }

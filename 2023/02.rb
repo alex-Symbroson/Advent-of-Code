@@ -6,7 +6,7 @@ def sumTurns(turns, &op)
     end
 end
 
-games = $<.readlines.map do |line|
+games = $<.map do |line|
     line.split(': ')[1].split('; ').map do |turn|
         turn.split(', ').to_h do |cubes|
             t = cubes.split
