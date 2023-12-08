@@ -2,7 +2,7 @@ max = { 'r' => 12, 'g' => 13, 'b' => 14 }
 
 def sumTurns(turns, &op)
     turns.reduce({}) do |sum, turn|
-        sum.update(turn) { |_k, old, new| op.call(old, new) }
+        sum.update(turn) { |_k, old, new| op.(old, new) }
     end
 end
 

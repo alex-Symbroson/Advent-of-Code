@@ -27,5 +27,5 @@ _solve = lambda { |(t, d)|
 }
 
 s = $<.map { _1.split[1..].map(&:to_i) }
-puts "Part 1: #{s.reduce(&:zip).map(&solve).reduce(&:*)}"
-puts "Part 2: #{solve.call(s.map(&:join).map(&:to_i))}"
+puts "Part 1: #{s.reduce(&:zip).map(&solve).reduce :*}"
+puts "Part 2: #{solve.(s.map(&:join).map(&:to_i))}"

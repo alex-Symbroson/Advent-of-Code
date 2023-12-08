@@ -8,5 +8,5 @@ c=->((t,d)){b=t/2-(0...t/2).bsearch{_1*(t-_1)>d};2*b+1+t%2}
 c=->((t,d)){b=((t*t-4*d-4)**0.5).to_i;b+(t+b+1)%2}
 
 s=$<.map{_1.split[1..].map(&:to_i)}
-puts"Part1:#{s.reduce(&:zip).map(&c).reduce(&:*)}"
-puts"Part2:#{c.call(s.map(&:join).map(&:to_i))}"
+p ((s.reduce:zip).map(&c)).reduce:*
+p c[s.map(&:join).map(&:to_i)]
