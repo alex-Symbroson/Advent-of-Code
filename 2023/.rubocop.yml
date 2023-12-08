@@ -19,3 +19,4 @@ Style/CaseEquality: { Enabled: false }
 CopNaming/FileName: { Enabled: false }
 Lint/AmbiguousOperatorPrecedence: { Enabled: false }
 Style/LambdaCall: { Enabled: false }
+Style/BlockComments: { Enabled: false }
