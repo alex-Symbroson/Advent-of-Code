@@ -1,28 +1,16 @@
-run, _, *maps = $<.readlines
-maps = maps.map { _1.split(/[ =(),\n]+/) }.group_by(&:first)
+run, _, *maps = $<.map { _1.split(/\W+/) }
+maps = maps.group_by(&:first)
+run = run[0].tr('LR', "\1\2").bytes
 
-pos = 'AAA'
-i = 0
-n = 0
-while pos != 'ZZZ'
-    d = run[i] == 'R' ? 2 : 1
-    pos = maps[pos][0][d]
-    i = (i + 1) % (run.size - 1)
-    n += 1
-end
-puts "Part 1: #{n}"
-
-move = lambda  { |pos|
-    i = 0
-    n = 0
-    while pos[2] != 'Z'
-        d = run[i] == 'R' ? 2 : 1
-        pos = maps[pos][0][d]
-        i = (i + 1) % (run.size - 1)
+move = lambda do |pos, &cond|
+    i = n = 0
+    until cond[pos]
+        pos = maps[pos][0][run[i]]
+        i = (i + 1) % run.size
         n += 1
     end
     n
-}
+end
 
-p maps.keys.filter { _1[2] == 'A' }
-puts "Part 2: #{maps.keys.filter { _1[2] == 'A' }.map(&move).reduce(1, &:lcm)}"
+puts "Part 1: #{move.('AAA') { _1 == 'ZZZ' }}"
+puts "Part 2: #{maps.keys.filter { _1[2] == 'A' }.map { |s| move[s] { _1[2] == 'Z' } }.reduce(&:lcm)}"
