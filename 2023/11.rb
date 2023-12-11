@@ -1,17 +1,16 @@
-expand = ->(s) { s.gsub(/^([.+]+)$/) { _1.tr('.', '+') } }
-input = $<.read
-input2 = expand[input].lines.map(&:chars).transpose[..-2].map(&:join).join("\n") + "\n"
-input = expand[input2].lines.map(&:chars).transpose[..-2].map(&:join).join("\n") + "\n"
-horiz = input.lines[0]
-vert = input2.lines[0]
+input = *$<
+rowidx = ->(l) { (0...l.size).filter { l[_1] =~ /^\.+$/ } }
+cols = rowidx[input]
+rows = rowidx[input.map(&:chars).transpose.map(&:join)]
 
-w = -~(input =~ /\n/)
+w = input[0].size
 pos = []
-input.scan(/[#]/) { pos << [$`.size % w, $`.size / w] }
+input.join.scan(/[#]/) { pos << [$`.size % w, $`.size / w] }
 
 cdist = lambda { |((a, b), (c, d))|
-    ex = horiz[a < c ? a..c : c..a].count('+') + vert[b < d ? b..d : d..b].count('+')
-    (a - c).abs + (b - d).abs + ($age - 1) * ex
+    ex = rows.count { _1 > a != _1 > c }
+    ex += cols.count { _1 > b != _1 > d }
+    (a - c).abs + (b - d).abs + ~-$age * ex
 }
 
 $age = 2
