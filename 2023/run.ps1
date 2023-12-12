@@ -12,7 +12,7 @@ else {
     $scriptName = "${day}.rb"
 }
 
-Get-Content input | ruby $scriptName | Tee-Object -Variable cmdOutput
+Get-Content input | C:\msys64\usr\bin\ruby.exe $scriptName | Tee-Object -Variable cmdOutput
 if (-not $?) { Exit }
 Write-Output ""
 
