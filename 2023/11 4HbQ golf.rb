@@ -1,0 +1,2 @@
+m=$<.map.with_index{|r,y|r.chars.map.with_index{|c,x|[x,y]if c==?#}}.flatten(1).compact.transpose
+[2,1000000].map{|l|p m.sum{|s|s=s.map{|t|(0..t).sum{s.include?(_1)?1:l}};s.sum{|a|s.sum{(a-_1).abs}}/2}}
