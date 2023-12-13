@@ -1,14 +1,13 @@
 test = lambda { |l, nudge|
     for i in 0...l.size - 1
-        next unless l[i].zip(l[i + 1]).count { _1 != _2 } <= nudge
+        k = i + 1
+        next unless l[i].zip(l[k]).count { _1 != _2 } <= nudge
 
-        my = [0, 2 * i + 2 - l.size].max
-        m2 = l[my..i].reverse.zip(l[i + 1..i + i + 1]).map { _1 == _2 }
-        next unless m2.count(&:!) == nudge
-        return i + 1 if nudge == 0
+        m2 = (0...[k, l.size - k].min).filter { l[k + _1] != l[i - _1] }
+        next unless m2.size == nudge
 
-        j = m2.find_index(&:!)
-        return i + 1 if l[i - j].zip(l[i + j + 1]).count { _1 != _2 } == 1
+        nudged = m2[0] && l[i - m2[0]].zip(l[k + m2[0]]).count { _1 != _2 }
+        return k if nudge == 0 || nudged == 1
     end
     0
 }
