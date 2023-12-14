@@ -22,3 +22,4 @@ Style/LambdaCall: { Enabled: false }
 Style/BlockComments: { Enabled: false }
 Style/RescueModifier: { Enabled: false }
 Style/NumericPredicate: { Enabled: false }
+Style/Semicolon: { Enabled: false }
