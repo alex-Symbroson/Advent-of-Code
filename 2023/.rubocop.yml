@@ -23,3 +23,6 @@ Style/BlockComments: { Enabled: false }
 Style/RescueModifier: { Enabled: false }
 Style/NumericPredicate: { Enabled: false }
 Style/Semicolon: { Enabled: false }
+Style/NestedTernaryOperator: { Enabled: false }
+Style/ParallelAssignment: { Enabled: false }
+Naming/VariableName: { Enabled: false }
