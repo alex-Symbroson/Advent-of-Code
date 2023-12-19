@@ -23,6 +23,8 @@ Style/BlockComments: { Enabled: false }
 Style/RescueModifier: { Enabled: false }
 Style/NumericPredicate: { Enabled: false }
 Style/Semicolon: { Enabled: false }
+Metrics/CyclomaticComplexity: { Enabled: false }
+Metrics/PerceivedComplexity: { Enabled: false }
 Style/NestedTernaryOperator: { Enabled: false }
 Style/ParallelAssignment: { Enabled: false }
 Naming/VariableName: { Enabled: false }
