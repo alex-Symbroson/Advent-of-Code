@@ -1,6 +1,6 @@
 rules = {}
 parts = []
-$<.read.strip.split("\n\n").then do |rulz, parz|
+$<.read.tr("\r", '').strip.split("\n\n").then do |rulz, parz|
     rulz.lines.map do |r|
         name, *s = r.gsub(/([<>])/, '.\1.').split(/[{,}]\n?/);
         rules[name] = s.map { |c| c.split(/[.:]/) }
@@ -40,54 +40,45 @@ mergeRule = lambda { |r|
 stackA = stackA.map(&mergeRule) # .sort_by { |v| v.map { _3 } }
 stackA = stackA.map { |r| r.group_by { _1[0] } }
 
-test = lambda { |(_, c, v, d), a|
-    # p([a, c, v, (c == '>' ? a > v : a < v)]);
-    #r1 = (c == '>' ? a > v : a < v)
-    #v += d || 0
-    #p([a,_,c,v,d]) if r1 != (c == '>' ? a > v : a < v)
-    c == '>' ? a > v : a < v
+test = lambda { |(_, c, v, _d), a|
+    return a > v if c == '>'
+    return a < v if c == '<'
+
+    p 'error'
 }
 
+xmas = 'amsx'.chars
 allranges = []
 
-foo = ->(a,b,(_, c, v, d)) {
-    return [a,b] # if !d
-    p([a,b,c,v,d])
-    # c == '>' ? [v+d,b] : [a,v+d]
-    res = [a,b]
-    res = [v+d,b] if c == '>' && v == a
-    res = [a,b+d] if c == '<' && v == b
-    p(["--", [a,b], res]) if [a,b] != res
-    res
-}
-
-dostuff = lambda { |first=0, last=4001, stack1 = stackA, chars = 'amsx'.chars, ranges = []|
+dostuff = lambda { |first = 0, last = 4001, stack1 = stackA, chars = xmas, ranges = []|
     if chars.empty?
         return 0 if stack1.empty?
 
+        ranges.map.with_index { |m, i| m << (stack1[0][xmas[i]]&.filter_map { _1[3] } || []) }
         allranges << ranges
         prod = ranges.map { |a, b| b - a - 1 }.reduce(:*)
-        # puts stack1.map { _1.values.flatten(1) }.map { _1.map(&:join).join(' && ') }.join("\n")
-        # p [*ranges, stack1.size, prod]
-        # puts [ranges.map { |(a, b)| a..b }].join(', ')
-        # puts
         return prod
     end
 
     c = chars[0]
     # puts "\nA"
-    as = stack1.flat_map { |r| r[c] ? r[c].map { _1[2] } : [] }.uniq.sort {|a,b| (a - b).abs > 1 ? a-b : b-a}
-    as if !as.empty?
+    as = stack1.flat_map { |r| r[c] ? r[c].map { _1[2] } : [] }.uniq.sort { |a, b| (a - b).abs > 1 ? a - b : b - a }
+    as unless as.empty?
     # puts stack1.map { _1.values.flatten(1) }.map { _1.map(&:join).join(' && ') }.join("\n")
     ([first] + as + [last]).each_cons(2).sum do |aa, ab|
         next 0 if aa > ab
+
         # puts "\nA"
-        stackM = stack1.filter { |rs| rs[c] ? rs[c].all? { |ra| test.(ra, (aa,ab=foo[aa,ab,ra]).sum/2) } : true }
+        stackM = stack1.filter do |rs|
+            next true unless rs[c]
+
+            rs[c].all? { |ra| test.(ra, (aa + ab) / 2) }
+        end
         dostuff.(first, last, stackM, chars.drop(1), ranges + [[aa, ab]])
     end
 }
 
-calc = ->(arr) { arr.sum{_1.map { |a, b| b - a - 1 }.reduce(:*)}}
+calc = ->(arr) { arr.sum { _1.map { |a, b| b - a - 1 }.reduce(:*) } }
 
 # 167065581009388
 # 167321718957000
@@ -95,7 +86,7 @@ calc = ->(arr) { arr.sum{_1.map { |a, b| b - a - 1 }.reduce(:*)}}
 p dostuff.()
 
 mergeRanges = lambda { |ranges, i|
-    ranges1 = ranges.map { |l| l.clone.delete_if.with_index { _2 == i } }
+    ranges1 = ranges.map { |l| l.clone.delete_if.with_index { _2 == i }.map { [_1, _2] } }
     ranges.size.times do |j|
         break if j >= ranges.size
 
@@ -105,7 +96,13 @@ mergeRanges = lambda { |ranges, i|
         r1, r2 = ranges[j][i], ranges[k][i]
         next unless r1[0] == r2[1] || r1[1] == r2[0]
 
-        ranges[j][i] = [[r1[0], r2[0]].min, [r1[1], r2[1]].max]
+        # r1[2].delete(1) if r1[0] == r2[1]
+        # r2[2].delete(-1) if r1[0] == r2[1]
+        # r1[2].delete(-1) if r1[1] == r2[0]
+        # r2[2].delete(1) if r1[1] == r2[0]
+        nd = r1[2] + r2[2]
+
+        ranges[j][i] = [[r1[0], r2[0]].min, [r1[1], r2[1]].max, nd]
         ranges.delete_at(k)
         ranges1.delete_at(k)
     end
@@ -113,30 +110,35 @@ mergeRanges = lambda { |ranges, i|
 
 p calc[allranges]
 4.times { 4.times { mergeRanges.(allranges, _1); } }
-puts allranges.map{|a,m,s,x|[x,m,a,s].map{|(g,h)|[g+1,h-1]}}.map(&:inspect).join("\n")
-              # .gsub('[0,', '[1,').gsub(', 4001', ', 4000')
+puts allranges.map { |a, m, s, x| [x, m, a, s] }.map {
+    _1.map do |a, b, d|
+        a += 1 unless d.include?(-1);
+        b -= 1 unless d.include?(1);
+        [a, b, d]
+    end
+}.map(&:inspect).join("\n")
+# .gsub('[0,', '[1,').gsub(', 4001', ', 4000')
 puts
 
 p calc[allranges]
 
+# [[1, 4000], [1, 838], [1, 1716], [1351, 2770]]
+# [[1, 4000], [1, 838], [1, 1716], [1351, 2770]],
 
-#[[1, 4000], [1, 838], [1, 1716], [1351, 2770]]
-#[[1, 4000], [1, 838], [1, 1716], [1351, 2770]],
+# [[1, 4000], [1, 4000], [1, 4000], [2770, 4000]]
+# [[1, 4000], [1, 4000], [1, 4000], [2771, 4000]],
 
-#[[1, 4000], [1, 4000], [1, 4000], [2770, 4000]]
-#[[1, 4000], [1, 4000], [1, 4000], [2771, 4000]],
+# [[1, 1416], [1, 4000], [1, 2006], [1, 1351]]
+# [[1, 1415], [1, 4000], [1, 2005], [1, 1350]],
 
-#[[1, 1416], [1, 4000], [1, 2006], [1, 1351]]
-#[[1, 1415], [1, 4000], [1, 2005], [1, 1350]],
+# [[2662, 4000], [1, 4000], [1, 2006], [1, 1351]]
+# [[2663, 4000], [1, 4000], [1, 2005], [1, 1350]],
 
-#[[2662, 4000], [1, 4000], [1, 2006], [1, 1351]]
-#[[2663, 4000], [1, 4000], [1, 2005], [1, 1350]],
+# [[1, 4000], [838, 1801], [1, 4000], [1351, 2770]]
+# [[1, 4000], [839, 1800], [1, 4000], [1351, 2770]],
 
-#[[1, 4000], [838, 1801], [1, 4000], [1351, 2770]]
-#[[1, 4000], [839, 1800], [1, 4000], [1351, 2770]],
+# [[1, 2440], [1, 2090], [2006, 4000], [537, 1351]]
+# [[1, 2440], [1, 2090], [2006, 4000], [537, 1350]],
 
-#[[1, 2440], [1, 2090], [2006, 4000], [537, 1351]]
-#[[1, 2440], [1, 2090], [2006, 4000], [537, 1350]],
-
-#[[1, 4000], [2090, 4000], [2006, 4000], [1, 1351]]
-#[[1, 4000], [2091, 4000], [2006, 4000], [1, 1350]],
+# [[1, 4000], [2090, 4000], [2006, 4000], [1, 1351]]
+# [[1, 4000], [2091, 4000], [2006, 4000], [1, 1350]],
