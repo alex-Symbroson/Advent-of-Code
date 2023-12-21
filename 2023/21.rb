@@ -1,31 +1,28 @@
 map = $<.map { _1.tr("\r\n", '').chars }
-size = map[0].size + 1i * map.size
 n, w = 26_501_365, map.size
 $stdout.sync = true
 
-modC = ->(v, m) { v.real % m.real + 1i * (v.imag % m.imag) }
-step = ->(p, d) { p + (1 - d) * (~d % 2) + 1i * (2 - d) * (d % 2) }
-m = ->(p, v = nil) { map[p.imag][p.real] = v || map[p.imag][p.real] }
+modC = ->((x, y), m) { [x % m, y % m] }
+step = ->((x, y), d) { [x + (1 - d) * (~d % 2), y + (2 - d) * (d % 2)] }
+m = ->((x, y), v = nil) { map[y][x] = v || map[y][x] }
 
-vis = Set.new
-vis << (size - 1 - 1i) / 2
-counts = [0]
+vis = lvis = Set.new([[~-w / 2, ~-w / 2]])
+counts = [1]
 r = n % w;
 
-(r + 2 * w).times do |i|
+(r + 2 * w).times do
     nvis = Set.new
-    vis.map do |p|
+    lvis.map do |p|
         4.times do
             q = step[p, _1]
-            nvis << q if m[modC[q, size]] != '#'
+            nvis << q unless vis.include?(q) || m[modC[q, w]] == '#'
         end
     end
-    vis = nvis
-    print "\r#{100 * i / (r + 2 * w)}%"
-    counts << vis.size
+    vis += nvis
+    lvis = nvis
+    counts << (counts[-2] || 0) + nvis.size
 end
 
-puts
 puts "Part 1: #{counts[64]}"
 
 y1, y2, y3 = counts[r], counts[r + w], counts[r + 2 * w]
