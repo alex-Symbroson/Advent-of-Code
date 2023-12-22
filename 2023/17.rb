@@ -46,4 +46,8 @@ puts "Part 1: #{cost}"
 
 $tmin, $tmax = 4, 10
 cost, path = Dijkstra.search(start_node, goal_test, cost_fn, next_node_fn)
-puts "Part 2: #{cost}"
+if cost > 1196 && cost < 1227 && cost != 1221 && cost != 1221 && cost != 1219 && cost != 1217
+    puts "Part 2: #{cost}"
+else
+    puts cost
+end
