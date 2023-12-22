@@ -3,7 +3,7 @@ require 'pqueue'
 module Astar
     Node = Struct.new(:state, :cost, :heuristic, :path)
 
-    def self.astar_search(start_state, goal_test, next_states_fn, cost_fn, &heuristic_fn)
+    def self.search(start_state, goal_test, next_states_fn, cost_fn, &heuristic_fn)
         pq = PQueue.new([Node.new(start_state, 0, heuristic_fn.(start_state), [])]) do |a, b|
             b.cost <=> a.cost
         end
@@ -27,6 +27,41 @@ module Astar
             end
         end
 
+        nil
+    end
+end
+
+module Dijkstra
+    Node = Struct.new(:pos, :dir, :prev, :cost, :len)
+
+    def self.search(src_node, goal_test, cost_fn, next_node_fn)
+        visited = Set.new
+        costs = {}
+        queue = PQueue.new { |(c1, _n1), (c2, _n2)| c1 < c2 }
+
+        makekey = ->(node1) { node1.pos.hash ^ node1.dir.hash }
+
+        queue << [0, Node.new(src_node, [0, 0], nil, 0, 0)]
+        until queue.empty?
+            cost, node = queue.pop
+            return [cost, makePath(node)] if goal_test[node.pos]
+            next if visited.include?(makekey[node])
+
+            visited << makekey[node]
+            for next_pos in next_node_fn[node.pos, node.cost, node.prev&.pos, node.len]
+                dir = $dir2[[node.pos, next_pos]]
+                next_node = Node.new(next_pos, dir, node, 0, node.len + 1)
+
+                prev_cost = costs[makekey[next_node]]
+                next_cost = cost + cost_fn[next_pos]
+                next_node.cost = next_cost
+
+                if !prev_cost || next_cost < prev_cost
+                    costs[makekey[next_node]] = next_cost
+                    queue << [next_cost, next_node]
+                end
+            end
+        end
         nil
     end
 end
@@ -56,5 +91,5 @@ next_node_fn = lambda do |node|
 end
 heuristic = ->(_node) { 1 }
 
-p Astar.astar_search(start_node, goal_test, next_node_fn, &heuristic)
+p Astar.search(start_node, goal_test, next_node_fn, &heuristic)
 =end
