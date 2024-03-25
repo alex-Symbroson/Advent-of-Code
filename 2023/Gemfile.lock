@@ -17,11 +17,11 @@ GEM
       racc
     pqueue (2.1.0)
     prism (0.18.0)
-    psych (5.1.1.1)
+    psych (5.1.2)
       stringio
     racc (1.7.3)
     rainbow (3.1.1)
-    rdoc (6.6.0)
+    rdoc (6.6.3.1)
       psych (>= 4.0.0)
     regexp_parser (2.8.2)
     reline (0.4.1)
@@ -51,6 +51,7 @@ GEM
 
 PLATFORMS
   x64-mingw-ucrt
+  x86_64-linux
 
 DEPENDENCIES
   debug
