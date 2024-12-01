@@ -2,7 +2,6 @@ require '.\Path'
 $stdout.sync = true
 
 map = $<.map { _1.tr("\n", '').chars.map(&:to_i) }
-$dir2 = ->(((a, b), (c, d))) { [c - a, d - b] }
 $m = ->((x, y)) { map[y][x] }
 inR = ->(v, a, b) { v >= a != v > b }
 w, h = map[0].size, map.size

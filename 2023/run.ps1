@@ -25,7 +25,7 @@ if ($answer -match "Part\s*(\d):\s*(\d+)" -and $matches) {
     $confirmation = Read-Host "$esc[32mSubmit $esc[1;37m$val$esc[22m to part $esc[1m${part}$esc[22m? [Y/N]"
     
     if ($confirmation -eq 'Y') {
-        aoc s $part $val
+        aoc s -d $day $part $val
     }
     if ($confirmation -eq 'N') {
         Write-Output "> aoc s $part $val"

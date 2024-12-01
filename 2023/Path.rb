@@ -33,6 +33,7 @@ end
 
 module Dijkstra
     Node = Struct.new(:pos, :dir, :prev, :cost, :len)
+    $dir2 = ->(((a, b), (c, d))) { [c - a, d - b] }
 
     def self.search(src_node, goal_test, cost_fn, next_node_fn)
         visited = Set.new
@@ -44,16 +45,16 @@ module Dijkstra
         queue << [0, Node.new(src_node, [0, 0], nil, 0, 0)]
         until queue.empty?
             cost, node = queue.pop
-            return [cost, makePath(node)] if goal_test[node.pos]
+            return [cost, makePath(node)] if goal_test[node]
             next if visited.include?(makekey[node])
 
             visited << makekey[node]
-            for next_pos in next_node_fn[node.pos, node.cost, node.prev&.pos, node.len]
+            for next_pos in next_node_fn[node]
                 dir = $dir2[[node.pos, next_pos]]
                 next_node = Node.new(next_pos, dir, node, 0, node.len + 1)
 
                 prev_cost = costs[makekey[next_node]]
-                next_cost = cost + cost_fn[next_pos]
+                next_cost = cost + cost_fn[next_node]
                 next_node.cost = next_cost
 
                 if !prev_cost || next_cost < prev_cost
