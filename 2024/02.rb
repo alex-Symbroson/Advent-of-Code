@@ -1,11 +1,9 @@
 levels = $<.map { |line| line.scan(/\d+/).map(&:to_i) }
 
-def check(level)
-    diff = level.each_cons(2).map { |a| a[0] - a[1] }
-    (diff.any? { (_1 > 0) != (diff[0] > 0) || _1.abs < 1 || _1.abs > 3 }) ? 0 : 1
+def check(lv, skip = 0)
+    lv.each_cons(2).all? { _2 > _1 == lv[1] > lv[0] && (_2 - _1).abs.between?(1, 3) } ? 1 : 0
 end
-
-print('Part 1: ', levels.map.sum {check(_1)}, "\n")
+print('Part 1: ', levels.map.sum { check(_1) }, "\n")
 
 part2 = levels.map.sum { |level|
     res, i = check(level), level.length
