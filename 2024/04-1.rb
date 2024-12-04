@@ -1,22 +1,19 @@
-input = $<.map{_1}
-search = "XMAS"
-h,w = input.length,input[0].length-1
+input = *$<
+h,w = input.length,input[0].length
 
-check = lambda{|x,y,a,b|
-    for i in 0..search.length
+check = lambda{ |x,y,a,b|
+    "XMAS".chars.all? {
         break if !y.between?(0, h-1)
-        break if input[y][x] != search[i]
+        break if input[y][x] != _1
         x += a
         y += b
-    end
-    i == search.length ? 1 : 0
+    } ? 1 : 0
 }
 
-count = 0
-for y in 0...h
-    for x in 0...w
-        count += (0..8).sum { check[x, y, _1%3-1, _1/3-1] }
-    end
-end
+part1 = h.times.sum { |y|
+    w.times.sum { |x|
+        9.times.sum { check[x, y, _1%3-1, _1/3-1] }
+    }
+}
 
-print('Part 1: ', count, "\n")
+print('Part 1: ', part1, "\n")
