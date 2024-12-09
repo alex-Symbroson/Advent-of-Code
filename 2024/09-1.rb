@@ -13,5 +13,5 @@ while a < b
 end
 
 p = -1
-sum = map.sum{|f,s|s.times.sum{p+=1;f ?p*f :0}}
+sum = map.sum{|f,s|s.times.sum{p+=1;f ?p*f:0}}
 print('Part 1: ', sum, "\n")

@@ -5,7 +5,7 @@ while b > 0
     b -= 1
     b -= 1 until map[b][0]
     f = map[b]
-    next unless a = map.find_index.with_index { |(g,t),i| !g && i<b && t>=f[1] }
+    next unless a = map.first(b).find_index { |g,t| !g && t>=f[1] }
 
     s = map[a]
     map.insert(a+1, [s[0], s[1] - f[1]]) if f[1] < s[1]
@@ -14,5 +14,5 @@ while b > 0
 end
 
 p = -1
-sum = map.sum{|f,s|s.times.sum{p+=1;f ?p*f :0}}
+sum = map.sum{|f,s|s.times.sum{p+=1;f ?p*f:0}}
 print('Part 1: ', sum, "\n")
