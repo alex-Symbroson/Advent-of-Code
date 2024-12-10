@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../2023"
+		}
+	],
+	"settings": {
+		"rubyLsp.formatter": "auto",
+		"rubyLsp.rubyVersionManager": {
+			"identifier": "none"
+		},
+		"files.associations": {
+			"input": "text/plain"
+		}
+	}
+}
