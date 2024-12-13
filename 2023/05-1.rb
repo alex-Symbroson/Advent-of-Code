@@ -9,4 +9,4 @@ conv = seeds.map { |seed|
     }
 }
 
-print('Part 1: ', conv.min)
+puts "Part 1: #{conv.min}"

@@ -17,4 +17,4 @@ part2 = h.times.sum{ |y|
     }
 }
 
-print('Part 2: ', part2, "\n")
+puts "Part 2: #{part2}"

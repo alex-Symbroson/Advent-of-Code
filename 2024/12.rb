@@ -31,5 +31,5 @@ while e = l.pop do
     m << [e[2], r.imag, r.real, countMergable[edges]]
 end
 
-print('Part 1: ', m.sum{_2*_3}, "\n")
-print('Part 2: ', m.sum{_2*(_3-_4)}, "\n")
+puts "Part 1: #{m.sum{_2*_3}}"
+puts "Part 2: #{m.sum{_2*(_3-_4)}}"

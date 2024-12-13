@@ -12,5 +12,5 @@ calc = ->(r) {
     }
 }
 
-print('Part 1: ', calc[2], "\n") #  1s
-print('Part 2: ', calc[3], "\n") # 90s
+puts "Part 1: #{calc[2]}" #  1s
+puts "Part 2: #{calc[3]}" # 90s

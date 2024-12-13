@@ -14,6 +14,6 @@ calc = ->((ax,ay,bx,by,cx,cy)) {
     a%1==0 && b%1==0 ? c.to_i : 0
 }
 
-print('Part 1: ', list.sum(&calc), "\n")
+puts "Part 1: #{list.sum(&calc)}"
 list.each { _1[4]+=1e13; _1[5]+=1e13 }
-print('Part 2: ', list.sum(&calc), "\n")
+puts "Part 2: #{list.sum(&calc)}"

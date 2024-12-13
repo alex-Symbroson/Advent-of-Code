@@ -12,5 +12,5 @@ walks = (h*w).times.sum { |x|
     map[x/w][x%w] > 0 ? 0 : (r = walk[x%w,x/w,0]; r.uniq.count+r.count*1i)
 }
 
-print('Part 1: ', walks.real, "\n")
-print('Part 2: ', walks.imag, "\n")
+puts "Part 1: #{walks.real}"
+puts "Part 2: #{walks.imag}"

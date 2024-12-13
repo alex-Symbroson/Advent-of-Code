@@ -1,6 +1,6 @@
 lines = *$<
 calc = ->(l) { l=l.dup; l.gsub!(/\D/, ''); (l[0] + l[-1]).to_i }
-print('Part 1: ', lines.sum(&calc), "\n")
+puts "Part 1: #{lines.sum(&calc)}"
 
 names = %w[_ one two three four five six seven eight nine]
 print('Part 2: ', lines.sum { |line|

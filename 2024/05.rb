@@ -12,5 +12,5 @@ sol = list.reduce(Hash.new(0)) { |h, l|
     h
 }
 
-print('Part 1: ', sol[true], "\n")
-print('Part 2: ', sol[false], "\n")
+puts "Part 1: #{sol[true]}"
+puts "Part 2: #{sol[false]}"

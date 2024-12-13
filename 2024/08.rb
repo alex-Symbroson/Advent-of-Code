@@ -28,5 +28,5 @@ calc = ->(r=nil) {
     anti.size
 }
 
-print('Part 1: ', calc[], "\n")
-print('Part 2: ', calc[1], "\n")
+puts "Part 1: #{calc[]}"
+puts "Part 2: #{calc[1]}"

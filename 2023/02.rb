@@ -15,10 +15,10 @@ games = $<.map { |line|
     }
 }
 
-print('Part 1: ', games.map.with_index.sum { |turn, i|
+puts "Part 1: #{games.map.with_index.sum { |turn, i|
     turn.any? { |t| t.any? { |k, v| v > max[k] } } ? 0 : i + 1
-}, "\n")
+}}"
 
-print('Part 2: ', games.map.sum { |game|
+puts "Part 2: #{games.map.sum { |game|
     sumTurns(game) { |a, b| [a, b].max }.values.reduce(:*)
-})
+}}"

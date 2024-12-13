@@ -18,7 +18,7 @@ walk = ->() {
     count
 }
 
-print('Part 1: ', walk[], "\n")
+puts "Part 1: #{walk[]}"
 
 wmap = map.map(&:dup)
 part2 = h.times.sum { |b|
@@ -30,4 +30,4 @@ part2 = h.times.sum { |b|
     }
 }
 
-print('Part 2: ', part2, "\n") # 22s
+puts "Part 2: #{part2}" # 22s

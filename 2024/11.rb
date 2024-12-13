@@ -16,6 +16,6 @@ s = ->(i) {
 }
 
 25.times(&s)
-print('Part 1: ', map.values.sum, "\n")
+puts "Part 1: #{map.values.sum}"
 50.times(&s)
-print('Part 2: ', map.values.sum, "\n")
+puts "Part 2: #{map.values.sum}"

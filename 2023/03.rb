@@ -19,5 +19,5 @@ for i in 1...input.length
     end
 end
 
-print('Part 1: ', parts.sum, "\n")
-print('Part 2: ', gears.values.filter(&:positive?).sum)
+puts "Part 1: #{parts.sum}"
+puts "Part 2: #{gears.values.filter(&:positive?).sum}"

@@ -15,4 +15,4 @@ end
 
 p = -1
 sum = map.sum{|f,s|s.times.sum{p+=1;f ?p*f:0}}
-print('Part 1: ', sum, "\n")
+puts "Part 1: #{sum}"

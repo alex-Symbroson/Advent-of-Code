@@ -12,4 +12,4 @@ def convSeeds(seeds, i)
     newseeds.flat_map { convSeeds(_1, i + 1) }
 end
 
-print('Part 2: ', seeds.map { convSeeds(_1, 0) }.flatten.map(&:begin).min)
+puts "Part 2: #{seeds.map { convSeeds(_1, 0) }.flatten.map(&:begin).min}"
