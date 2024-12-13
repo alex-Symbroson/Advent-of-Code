@@ -22,11 +22,11 @@ print('Part 1: ', walk[], "\n")
 
 wmap = map.map(&:dup)
 part2 = h.times.sum { |b|
-    w.times.sum { |a|
-        next 0 if cmap[b][a] != '.' || wmap[b][a] == '.'
+    w.times.count { |a|
+        next nil if cmap[b][a] != '.' || wmap[b][a] == '.'
         d, g, map = 3, cg.dup, cmap.map(&:dup)
         map[b][a] = '#'
-        walk[] == 0 ? 1 : 0
+        walk[] == 0
     }
 }
 

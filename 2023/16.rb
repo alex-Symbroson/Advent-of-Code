@@ -1,5 +1,5 @@
 chars = '.-|\\/#'
-map = $<.read.tr("\r", '').split("\n").map { |l| l.chars.map { chars.index(_1) << 4 } }
+map = $<.read.split("\n").map { |l| l.chars.map { chars.index(_1) << 4 } }
 base = map.map(&:clone).clone
 w, h = map[0].size, map.size
 
@@ -38,13 +38,13 @@ cast = lambda do |p, d|
 end
 
 cast[[-1, 0], 0]
-puts "Part 1: #{map.sum { |l| l.sum { _1 % 16 == 0 ? 0 : 1 } }}"
+puts "Part 1: #{map.sum { |l| l.count { _1 % 16 != 0 } }}"
 
 max = (0...w).flat_map do |i|
     [[i, -1, 1], [-1, i, 0], [w - i - 1, h, 3], [w, h - i - 1, 2]].map do |x, y, d|
         map = base.map(&:clone).clone
         cast[[x, y], d]
-        map.sum { |l| l.sum { _1 % 16 == 0 ? 0 : 1 } }
+        map.sum { |l| l.count { _1 % 16 != 0 } }
     end
 end.max
 

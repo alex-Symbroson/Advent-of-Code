@@ -1,19 +1,23 @@
 $day = Get-Date -Format "dd"
 $esc = [char]27
 $ErrorActionPreference = "Stop"
+$intxt = "input"
 
-if ($args[0]) { $part = "{0:d1}" -f [int]$args[0] }
-if ($args[1]) { $day = "{0:d2}" -f [int]$args[1] }
+$i = 0
+if ($args[0] -eq "test") { $intxt = "test"; $i++ }
+if ($args[0] -eq "golf") { $ver = "-golf"; $i++ }
+if ($args[$i]) { $part = "{0:d1}" -f [int]$args[$i] }
+if ($args[$i + 1]) { $day = "{0:d2}" -f [int]$args[$i + 1] }
 
 if ($part) {
-    $scriptName = "${day}-$part.rb"
+    $scriptName = "${day}-$part$ver.rb"
 }
 else {
-    $scriptName = "${day}.rb"
+    $scriptName = "${day}$ver.rb"
 }
 
-
-Get-Content input | ruby $scriptName | Tee-Object -Variable cmdOutput
+Write-Output "$scriptName : $((Get-Item $scriptName).Length) Bytes"
+Get-Content $intxt | ruby $scriptName | Tee-Object -Variable cmdOutput
 if (-not $?) { Exit }
 Write-Output ""
 
