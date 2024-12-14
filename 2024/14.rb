@@ -1,39 +1,28 @@
 list = $<.map{_1.scan(/[-\d]+/).map(&:to_i)}
-w,h = 101,103
-wq,hq = w/2+1, h/2+1
-m = Hash.new(0)
+w, h = 101, 103
+wq, hq = w/2+1, h/2+1
+mx, my = Hash.new(0),Hash.new(0)
 
-step = ->(v) {
-    v[0] = (v[0]+v[2]) % w
-    v[1] = (v[1]+v[3]) % h
-    m[v[0]] += 1
+step = ->(v, d=1) {
+    v[0] = (v[0] + d*v[2]) % w
+    v[1] = (v[1] + d*v[3]) % h
+    mx[v[0]] += 1
+    my[v[1]] += 1
 }
 
-100.times { list.map(&step) }
+list.each { step[_1, 100] }
 
-sums = [[0,0],[0,0]]
-list.each { |(x,y)|
-    next if x==wq-1 || y==hq-1
-    sums[y/hq][x/wq] += 1
+sums = list.map { |(x,y)|
+    y/hq*2 + x/wq if x!=wq-1 && y!=hq-1
+}.compact.tally
+
+puts "Part 1: #{sums.values.reduce(&:*)}"
+
+part2 = (101..).each {
+    mx.clear
+    my.clear
+    list.each(&step)
+    break _1 if mx.values.max > 30 && my.values.max > 30
 }
 
-puts "Part 1: #{sums.flatten.reduce(&:*)}"
-
-map = 103.times.map{' '*103}
-
-i=100
-while true do
-    m.clear
-    list.map(&step)
-    i+=1
-
-    next unless (i-48)%101 == 0 || (i-23)%103 == 0
-
-    list.each { |v| map[v[1]][v[0]] = '#' }
-    break if map.any?{_1.include?("#"*31)}
-    list.each { |v| map[v[1]][v[0]] = ' ' }
-end
-
-# puts map.join("\n")
-
-puts "Part 2: #{i}"
+puts "Part 2: #{part2}"
