@@ -10,6 +10,11 @@ step = ->(v, d=1) {
     my[v[1]] += 1
 }
 
+crt = ->(mods, rems) {
+    max = mods.inject(:*)
+    rems.zip(mods).map{_1.step(max, _2).to_a }.inject(:&).first
+}
+
 list.each { step[_1, 100] }
 
 sums = list.map { |(x,y)|
@@ -18,11 +23,13 @@ sums = list.map { |(x,y)|
 
 puts "Part 1: #{sums.values.reduce(&:*)}"
 
+l = []
 part2 = (101..).each {
     mx.clear
     my.clear
     list.each(&step)
-    break _1 if mx.values.max > 30 && my.values.max > 30
+    l << _1 if mx.values.max > 30 || my.values.max > 30
+    break if l.size == 2
 }
 
-puts "Part 2: #{part2}"
+puts "Part 2: #{crt[[h,w], l]}"
