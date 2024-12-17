@@ -33,30 +33,32 @@ triplets = Hash.new([])
 }
 
 # combine triplets to continuous 8 bit number digits
-check = ->(f, opts, i = opts.size-1) {
+merge = ->(f, opts, i = opts.size-1) {
     next [[]] if i<0
     opts[i].filter_map{|l|
+        #     [f0, f1, f2]
+        # [l0, l1, l2]
         next [] if l[1]!=f[0] || l[2]!=f[1]
-        check[l, opts, i-1].each{_1 << l}
+        merge[l, opts, i-1].each{_1 << l}
     }.flatten!(1)
 }
 
 opts = prog.map{triplets[_1]}
-sols = check[[0,0,0], opts]
+sols = merge[[0,0,0], opts]
 
 part2 = sols.map { |digs|
     # p digs.map(&:first).join # octal value
 
     # decimal conversion
-    rega = p digs.each.with_index.sum{|v,i| v[0]*8**i}
-    p run[[rega, 0, 0]]
+    rega = digs.each.with_index.sum{|v,i| v[0]*8**i}
 
+    # debugging
+    p run[[rega, 0, 0]]
     p digs.map{|a1,a2,a3| # run program
         a = a1 + a2*8 + a3*64
         (a1^(a>>(a1^5))^3)%8
     }
-
-    p run[[rega, 0, 0]] == prog
+    p [run[[rega, 0, 0]] == prog, rega]
 
     rega
 }.min
