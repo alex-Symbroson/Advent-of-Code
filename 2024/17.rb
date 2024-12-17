@@ -26,12 +26,11 @@ run = ->(creg) {
 puts "Part 1: #{run[reg].join(',')}"
 
 # 8 bit triplet combinations to output any instruction
-triplets = 8.times.map { |pi|
-    [pi, (8**3).times.map { |a|
-        out = ((a%8)^(a>>((a%8)^5))^3)%8
-        [a%8, a/8%8, a/64] if pi == out
-    }.compact.sort]
-}.to_h
+triplets = Hash.new([])
+(8**3).times { |a|
+    pi = run[[a,0,0]].first
+    triplets[pi] += [[a%8, a/8%8, a/64]]
+}
 
 # combine triplets to continuous 8 bit number digits
 check = ->(f, opts, i = opts.size-1) {
@@ -46,8 +45,20 @@ opts = prog.map{triplets[_1]}
 sols = check[[0,0,0], opts]
 
 part2 = sols.map { |digs|
+    # p digs.map(&:first).join # octal value
+
     # decimal conversion
-    p digs.each.with_index.sum{|v,i| v[0]*8**i}
+    rega = p digs.each.with_index.sum{|v,i| v[0]*8**i}
+    p run[[rega, 0, 0]]
+
+    p digs.map{|a1,a2,a3| # run program
+        a = a1 + a2*8 + a3*64
+        (a1^(a>>(a1^5))^3)%8
+    }
+
+    p run[[rega, 0, 0]] == prog
+
+    rega
 }.min
 
 puts "Part 2: #{part2}"
