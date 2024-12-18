@@ -62,7 +62,7 @@ module Dijkstra
             next if track_visited && visited.include?(makekey[node])
 
             visited << makekey[node] if track_visited
-            for next_pos in next_node_fn[node]
+            for next_pos in next_node_fn[node.pos, node]
                 next_node = Node.new(next_pos, node, 0, node.len + 1)
 
                 prev_cost = costs[makekey[next_node]]

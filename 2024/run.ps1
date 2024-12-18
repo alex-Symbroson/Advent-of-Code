@@ -22,7 +22,7 @@ if (-not $?) { Exit }
 Write-Output ""
 
 $answer = $cmdOutput | Select-Object -Last 1
-if ($answer -match "Part\s*(\d):\s*(\d+)" -and $matches) {
+if ($answer -match "Part\s*(\d):\s*(.+)" -and $matches) {
     $val = $matches[2]
     $part = $matches[1]
 
