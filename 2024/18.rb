@@ -11,7 +11,9 @@ start,fin = [0,0],[w-1,h-1]
 cost_fn = ->(*_) { 1 }
 goal_test = ->(v, *_) { fin == v }
 next_node_fn = ->(pos, *_) {
-    4.times.map{step[pos, _1]}.filter{m[_1] == '.'}
+    4.times.map{step[pos, _1]}
+        .filter{|(x,y)| x>=0 && y>=0 }
+        .filter{m[_1] == '.'}
 }
 
 n.times{m[bytes[_1],'#']}
