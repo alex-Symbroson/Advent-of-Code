@@ -4,8 +4,8 @@
 
 using namespace std;
 
-vector<int> run(const array<int, 3>& creg, const vector<int>& prog) {
-    array<int, 3> reg = creg;
+vector<int> run(const array<int, 4>& creg, const vector<int>& prog) {
+    array<int, 4> reg = creg;
     vector<int> out;
     int ip = 0;
 
@@ -33,11 +33,11 @@ vector<int> run(const array<int, 3>& creg, const vector<int>& prog) {
 }
 
 // Merge logic for triplets
-vector<vector<array<int, 3>>> merge(array<int, 3> f, vector<vector<array<int, 3>>> opts, int i) {
+vector<vector<array<int, 4>>> merge(array<int, 4> f, vector<vector<array<int, 4>>> opts, int i) {
     if (i < 0) return {{}};
-    vector<vector<array<int, 3>>> result;
+    vector<vector<array<int, 4>>> result;
     for (const auto& l : opts[i]) {
-        if (l[1] != f[0] || l[2] != f[1]) continue;
+        if (l[1] != f[0] || l[2] != f[1] || l[3] != f[2]) continue;
         auto merged = merge(l, opts, i - 1);
         for (auto& res : merged) res.push_back(l);
         result.insert(result.end(), merged.begin(), merged.end());
@@ -47,7 +47,7 @@ vector<vector<array<int, 3>>> merge(array<int, 3> f, vector<vector<array<int, 3>
 
 int main() {
     // Example input; replace with actual input logic if needed
-    array<int, 3> reg;
+    array<int, 4> reg;
     vector<int> prog;
 
     // Parse the input into reg and prog arrays (assumed to be read from file or other source)
@@ -65,18 +65,18 @@ int main() {
     cout << endl;
 
     // Part 2 - Triplets and merge logic
-    array<vector<array<int, 3>>, 8> triplets;
-    for (int a = 0; a < 8 * 8 * 8; ++a) {
+    array<vector<array<int, 4>>, 8> triplets;
+    for (int a = 0; a < 8 * 8 * 8 * 8; ++a) {
         vector<int> pi = run({a, 0, 0}, prog);
-        triplets[pi[0]].push_back({a % 8, a / 8 % 8, a / 64});
+        triplets[pi[0]].push_back({a % 8, a / 8 % 8, a / 64 % 8, a / 512});
     }
 
-    vector<vector<array<int, 3>>> opts(prog.size());
+    vector<vector<array<int, 4>>> opts(prog.size());
     for (size_t i = 0; i < prog.size(); ++i) {
         opts[i] = triplets[prog[i]];
     }
 
-    vector<vector<array<int, 3>>> sols = merge({0, 0, 0}, opts, opts.size() - 1);
+    vector<vector<array<int, 4>>> sols = merge({}, opts, opts.size() - 1);
 
     // Part 2 - Find the minimum value
     uint64_t part2 = -1;

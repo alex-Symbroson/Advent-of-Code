@@ -34,7 +34,7 @@ Write-Output ""
 
 $prev = @(Get-Content puzzle.md | ? { $_ -match "Your puzzle answer was" } | % { $_.Split('`')[1] })
 $cmdOutput | % {
-    if ($_ -notmatch "Part\s*(\d):\s*(\S+)") { continue }
+    if ($_ -notmatch "Part\s*(\d):\s*(\S+)") { return }
 
     $val = $matches[2]
     $part = $matches[1]
@@ -43,7 +43,7 @@ $cmdOutput | % {
             $text = "That's $esc[31mnot$esc[37m the right answer for $esc[1mpart $part$esc[22m! The right answer was"
             Write-Output "$text $esc[1m$($prev[$part-1])$esc[22m"
         }
-        continue
+        return
     }
 
     $confirmation = Read-Host "$esc[32mSubmit $esc[37m$val$esc[22m to part $esc[1m${part}$esc[22m? [Y/N]"
