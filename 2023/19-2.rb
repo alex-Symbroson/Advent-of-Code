@@ -1,6 +1,6 @@
 rules = {}
 parts = []
-$<.read.tr("\r", '').strip.split("\n\n").then do |rulz, parz|
+$<.read.strip.split("\n\n").then do |rulz, parz|
     rulz.lines.map do |r|
         name, *s = r.gsub(/([<>])/, '.\1.').split(/[{,}]\n?/);
         rules[name] = s.map { |c| c.split(/[.:]/) }

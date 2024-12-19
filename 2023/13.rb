@@ -12,7 +12,7 @@ test = lambda { |l, nudge|
     0
 }
 
-res = $<.read.tr("\r", '').split("\n\n").sum do |l|
+res = $<.read.split("\n\n").sum do |l|
     m = l.split("\n").map(&:chars)
     (
         100 * test[m, 0] + test[m.transpose, 0] +

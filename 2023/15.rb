@@ -1,4 +1,4 @@
-input = $<.read.tr("\r\n", '').split(',')
+input = $<.read.tr("\n", '').split(',')
 hash = ->(l) { l.bytes.reduce(0) { (_1 + _2) * 17 % 256 } }
 
 boxes = {}
