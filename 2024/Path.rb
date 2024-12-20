@@ -43,7 +43,7 @@ module Dijkstra
         path.reverse!
     end
 
-    def self.search(src_node, goal_test, cost_fn, next_node_fn, track_visited = true, multiple = false)
+    def self.search(src_node, goal_test, cost_fn, next_node_fn, track_visited = true, multiple = false, shortest = true)
         visited = Set.new
         costs = {}
         queue = PQueue.new { |(c1, _n1), (c2, _n2)| c1 < c2 }
@@ -71,7 +71,7 @@ module Dijkstra
 
                 if !prev_cost || next_cost <= prev_cost
                     costs[makekey[next_node]] = next_cost
-                    queue << [next_cost, next_node] if sols.empty? || next_cost <= sols[0][0]
+                    queue << [next_cost, next_node] if !shortest || sols.empty? || next_cost <= sols[0][0]
                 end
             end
         end
