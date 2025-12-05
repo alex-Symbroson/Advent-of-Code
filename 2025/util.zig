@@ -17,6 +17,14 @@ pub fn d2n(d: u8) u32 {
     return d - '0';
 }
 
+pub fn trim(s: []const u8) []const u8 {
+    return std.mem.trim(u8, s, "\r\n\t ");
+}
+
+pub fn parseN(s: []const u8) !usize {
+    return try std.fmt.parseInt(usize, trim(s), 10);
+}
+
 pub fn reverse_n(n: usize) usize {
     var x = n;
     var r: usize = 0;
